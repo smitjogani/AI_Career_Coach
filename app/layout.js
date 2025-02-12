@@ -38,8 +38,8 @@ export default function RootLayout({ children }) {
             </main>
 
             {/* footer */}
-            <footer className='bg-black py-12'>
-              <div className='container mx-auto px-4 text-center text-gray-200'>
+            <footer className="bg-muted/50 py-12">
+              <div className="container mx-auto px-4 text-center text-gray-200">
                 <p>Made with 💗 by Smit Jogani</p>
               </div>
             </footer>
