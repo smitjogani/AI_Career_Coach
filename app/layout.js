@@ -38,7 +38,7 @@ export default function RootLayout({ children }) {
             </main>
 
             {/* footer */}
-            <footer className="bg-muted/50 py-12">
+            <footer className="bg-background py-3 border-t">
               <div className="container mx-auto px-4 text-center text-gray-200">
                 <p>Made with 💗 by Smit Jogani</p>
               </div>
