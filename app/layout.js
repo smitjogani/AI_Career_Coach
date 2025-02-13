@@ -1,16 +1,17 @@
-import {ClerkProvider} from '@clerk/nextjs'
+import { ClerkProvider } from '@clerk/nextjs'
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider"
 import Header from "@/components/header"
 import "./globals.css";
 import { dark } from "@clerk/themes";
+import { Toaster } from '@/components/ui/sonner';
 
 export const metadata = {
   title: "AI Career Coach",
   description: "",
 };
 
-const inter = Inter({subset: ["letin"]})
+const inter = Inter({ subset: ["letin"] })
 
 export default function RootLayout({ children }) {
   return (
@@ -19,23 +20,24 @@ export default function RootLayout({ children }) {
         baseTheme: dark,
       }}
     >
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${inter.className}`}
-      >
-         <ThemeProvider
-             attribute="class"
-             defaultTheme="dark"
-             enableSystem
-             disableTransitionOnChange
+      <html lang="en" suppressHydrationWarning>
+        <body
+          className={`${inter.className}`}
+        >
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            disableTransitionOnChange
           >
             {/* header */}
-            <Header/>
+            <Header />
 
             {/* Body */}
             <main className='min-h-screen'>
               {children}
             </main>
+            <Toaster richColors />
 
             {/* footer */}
             <footer className="bg-background py-3 border-t">
@@ -45,8 +47,8 @@ export default function RootLayout({ children }) {
             </footer>
 
           </ThemeProvider>
-      </body>
-    </html>
+        </body>
+      </html>
     </ClerkProvider>
   );
 }
