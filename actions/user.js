@@ -2,6 +2,7 @@
 
 import { db } from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
+import { generateAIInsights } from "./dashboard";
 
 export async function updateUser(data) {
     const { userId } = await auth();
@@ -25,19 +26,15 @@ export async function updateUser(data) {
 
                 //if not exist
                 if (!industryInsight) {
-                    industryInsight = await tx.industryInsight.create({
+                    const insights = await generateAIInsights(data.industry);
+
+                    industryInsight = await db.industryInsight.create({
                         data: {
                             industry: data.industry,
-                            salaryRanges: [],
-                            growthRate: 0,
-                            demandLevel: "MEDIUM",
-                            topSkills: [],
-                            marketOutlook: "NEUTRAL",
-                            keyTrends: [],
-                            recommendedSkills: [],
-                            nextUpdate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
-                        }
-                    })
+                            ...insights,
+                            nextUpdate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+                        },
+                    });
                 }
 
                 // update User
@@ -68,11 +65,12 @@ export async function updateUser(data) {
 
 export async function getUserOnboardingStatus() {
     const { userId } = await auth();
-    if (!userId) throw new Error("unauthorized");
+    if (!userId) throw new Error("Unauthorized");
 
     const user = await db.user.findUnique({
         where: { clerkUserId: userId },
     });
+
     if (!user) throw new Error("User not found");
 
     try {
@@ -86,11 +84,10 @@ export async function getUserOnboardingStatus() {
         });
 
         return {
-            isOnBoarded: !!user?.industry,
+            isOnboarded: !!user?.industry,
         };
-
     } catch (error) {
-        console.error("Error checking onboarding status : ", error.message);
-        throw new Error("Failed to check onboarding status : " + error.message);
+        console.error("Error checking onboarding status:", error);
+        throw new Error("Failed to check onboarding status");
     }
 }

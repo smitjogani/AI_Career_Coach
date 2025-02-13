@@ -26,7 +26,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { onBoardingSchema, onboardingSchema } from "@/app/lib/schema";
+import { onBoardingSchema } from "@/app/lib/schema";
 import { updateUser } from "@/actions/user";
 import useFetch from "@/hook/use-fetch";
 
