@@ -29,7 +29,7 @@ export default function StatsCards({ assessments }) {
       <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium">Average Score</CardTitle>
-          <Trophy className="h-5 w-5 text-muted-foreground text-yellow-500" />
+          <Trophy className="h-5 w-5 text-muted-foreground" color="#f7f263" />
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">{getAverageScore()}%</div>
@@ -44,7 +44,7 @@ export default function StatsCards({ assessments }) {
           <CardTitle className="text-sm font-medium">
             Questions Practiced
           </CardTitle>
-          <Brain className="h-5 w-5 text-muted-foreground text-blue-400" />
+          <Brain className="h-5 w-5 text-muted-foreground " color="#66b8f2"/>
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">{getTotalQuestions()}</div>
@@ -55,7 +55,7 @@ export default function StatsCards({ assessments }) {
       <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium">Latest Score</CardTitle>
-          <Target className="h-5 w-5 text-muted-foreground text-green-400" />
+          <Target className="h-5 w-5 text-muted-foreground " color="#6fed6f" />
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">
