@@ -14,13 +14,14 @@ import { EntryForm } from './entry-form';
 import MDEditor from '@uiw/react-md-editor';
 import { entriesToMarkdown } from "@/app/lib/helper";
 import { useUser } from '@clerk/nextjs';
+import html2pdf from 'html2pdf.js';
 
 const ResumeBuilder = ({ initialContent }) => {
 
     const [activeTab, setActiveTab] = useState("edit");
     const [resumeMode, setResumeMode] = useState("preview");
     const [previewContent, setPreviewContent] = useState(initialContent);
-    const [isGenerating, setGenerating] = useState(false);
+    const [isGenerating, setIsGenerating] = useState(false);
 
     const { user } = useUser();
 
@@ -95,10 +96,37 @@ const ResumeBuilder = ({ initialContent }) => {
     };
 
     const onSubmit = async (data) => {
+        try {
+            const formattedContent = previewContent
+                .replace(/\n/g, "\n") // Normalize newlines
+                .replace(/\n\s*\n/g, "\n\n") // Normalize multiple newlines to double newlines
+                .trim();
 
+            await saveResumeFn(previewContent);
+        } catch (error) {
+            console.error("Save error:", error);
+        }
     }
 
-    const generatePDF = () => {}
+    const generatePDF = async () => {
+        setIsGenerating(true);
+        try {
+            const element = document.getElementById("resume-pdf");
+            const opt = {
+                margin: [15, 15],
+                filename: "resume.pdf",
+                image: { type: "jpeg", quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+            };
+
+            await html2pdf().set(opt).from(element).save();
+        } catch (error) {
+            console.error("PDF generation error:", error);
+        } finally {
+            setIsGenerating(false);
+        }
+    }
 
     return (
         <div data-color-mode="light" className="space-y-4">
@@ -106,11 +134,24 @@ const ResumeBuilder = ({ initialContent }) => {
                 <h1 className='font-bold gradient-title text-5xl md:text-6xl'>Resume Builder</h1>
 
                 <div className='space-x-2'>
-                    <Button className='bg-green-600 text-white hover:bg-green-800'>
-                        <Save className='h-4 w-4' />
-                        Save
+                    <Button
+                        variant="destructive"
+                        onClick={onSubmit}
+                        disabled={isSaving}
+                    >
+                        {isSaving ? (
+                            <>
+                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                Saving...
+                            </>
+                        ) : (
+                            <>
+                                <Save className="h-4 w-4" />
+                                Save
+                            </>
+                        )}
                     </Button>
-                    <Button onClick={generatePDF}>
+                    <Button onClick={generatePDF} disabled={isGenerating}>
                         {isGenerating ? (
                             <>
                                 <Loader2 className="h-4 w-4 animate-spin" />
