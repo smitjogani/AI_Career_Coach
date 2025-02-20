@@ -52,7 +52,7 @@ export default function CoverLetterList({ coverLetters }) {
     }
 
     return (
-        <div className="space-y-4 px-5">
+        <div className="space-y-4">
             {coverLetters.map((letter) => (
                 <Card key={letter.id} className="group relative ">
                     <CardHeader>
@@ -70,7 +70,7 @@ export default function CoverLetterList({ coverLetters }) {
                                     <Button
                                         variant="outline"
                                         size="icon"
-                                        onClick={() => router.push(`/ai-cover-letter/${letter.id}`)}
+                                        onClick={() => router.push(`/ai-cover-latter/${letter.id}`)}
                                     >
                                         <Eye className="h-4 w-4" />
                                     </Button>
