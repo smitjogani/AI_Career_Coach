@@ -26,6 +26,7 @@ import {
   GraduationCap,
   ChevronDown,
   StarsIcon,
+  Newspaper
 } from "lucide-react";
 import { checkUser } from '@/lib/checkUser';
 
@@ -89,6 +90,14 @@ const Header = async () => {
                     <GraduationCap className='h-4 w-4' />
                     <span>
                       Interview Prep
+                    </span>
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href={"/tech-news"} className='flex items-center gap-2'>
+                    <Newspaper className='h-4 w-4' />
+                    <span>
+                      Tech News
                     </span>
                   </Link>
                 </DropdownMenuItem>
