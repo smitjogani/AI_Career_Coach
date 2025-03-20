@@ -13,12 +13,12 @@ export default async function EditCoverLetterPage({ params }) {
     return (
       <div className="container mx-auto py-6">
         <div className="flex flex-col space-y-2">
-          <Link href="/ai-cover-letter">
+          {/* <Link href="/ai-cover-letter">
             <Button variant="link" className="gap-2 pl-0">
               <ArrowLeft className="h-4 w-4" />
               Back to Cover Letters
             </Button>
-          </Link>
+          </Link> */}
           <h1 className="text-6xl font-bold gradient-title mb-6">
             Cover Letter Not Found
           </h1>
@@ -30,12 +30,12 @@ export default async function EditCoverLetterPage({ params }) {
   return (
     <div className="container mx-auto py-6">
       <div className="flex flex-col space-y-2 px-5">
-        <Link href="/ai-cover-letter">
+        {/* <Link href="/ai-cover-letter">
           <Button variant="link" className="gap-2 pl-0">
             <ArrowLeft className="h-4 w-4" />
             Back to Cover Letters
           </Button>
-        </Link>
+        </Link> */}
 
         <h1 className="text-6xl font-bold gradient-title mb-6">
           {coverLetter?.jobTitle} at {coverLetter?.companyName}

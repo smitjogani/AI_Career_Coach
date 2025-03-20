@@ -42,7 +42,7 @@ export default function RootLayout({ children }) {
             {/* footer */}
             <footer className="bg-background py-3 border-t">
               <div className="container mx-auto px-4 text-center text-gray-200">
-                <p>Made with 💗 by Smit Jogani</p>
+                <p>©2025 AI Career Coach</p>
               </div>
             </footer>
 
